@@ -1,8 +1,12 @@
+# pyfrpc/client.py
 import subprocess
 import os
 import signal
 import tempfile
+from .logger import setup_logger
 
+# 设置日志
+logger = setup_logger()
 
 class FrpcClient:
     def __init__(self, config_path=None, **kwargs):
@@ -18,6 +22,21 @@ class FrpcClient:
             # 如果没有提供配置文件，则构建一个临时配置文件
             self.config_content = self._build_config(**kwargs)
             self.config_path = self._write_temp_config(self.config_content)
+            logger.info("使用临时配置文件: %s", self.config_path)
+        else:
+            logger.info("使用配置文件: %s", self.config_path)
+            self._validate_config_file(config_path)
+
+    def _validate_config_file(self, config_path):
+        """
+        验证配置文件是否存在且可读。
+
+        :param config_path: 配置文件路径。
+        """
+        if not os.path.exists(config_path):
+            raise FileNotFoundError(f"配置文件不存在: {config_path}")
+        if not os.access(config_path, os.R_OK):
+            raise PermissionError(f"无法读取配置文件: {config_path}")
 
     def _build_config(self, **kwargs):
         """
@@ -49,23 +68,36 @@ class FrpcClient:
         """
         if not self.config_path:
             raise ValueError("配置文件路径未设置")  # 如果配置文件路径未设置，抛出异常
-        self.process = subprocess.Popen(['frpc', '-c', self.config_path])  # 启动 FRPC 进程
+        try:
+            self.process = subprocess.Popen(['frpc', '-c', self.config_path])  # 启动 FRPC 进程
+            logger.info("FRPC 客户端已启动")
+        except Exception as e:
+            logger.error("启动 FRPC 客户端失败: %s", e)
+            raise
 
     def stop(self):
         """
         停止 FRPC 客户端。
         """
         if self.process:
-            self.process.send_signal(signal.SIGINT)  # 发送 SIGINT 信号停止 FRPC 进程
-            self.process.wait()  # 等待进程结束
-            self.process = None  # 重置进程对象
+            try:
+                self.process.send_signal(signal.SIGINT)  # 发送 SIGINT 信号停止 FRPC 进程
+                self.process.wait()  # 等待进程结束
+                logger.info("FRPC 客户端已停止")
+            except Exception as e:
+                logger.error("停止 FRPC 客户端失败: %s", e)
+            finally:
+                self.process = None  # 重置进程对象
         if self.config_path and os.path.exists(self.config_path):
             # 如果存在临时配置文件，删除它
-            os.remove(self.config_path)
+            try:
+                os.remove(self.config_path)
+                logger.info("临时配置文件已删除: %s", self.config_path)
+            except Exception as e:
+                logger.error("删除临时配置文件失败: %s", e)
 
     def __del__(self):
         """
         对象被销毁时，确保停止 FRPC 客户端并清理临时文件。
         """
         self.stop()
-
