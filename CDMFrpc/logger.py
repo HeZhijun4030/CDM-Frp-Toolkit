@@ -2,7 +2,7 @@
 
 import logging
 
-def setup_logger(level=logging.INFO, log_file=None):
+def setup_logger(level, log_file=None):
     """
     设置日志记录器。
 
@@ -12,6 +12,16 @@ def setup_logger(level=logging.INFO, log_file=None):
     """
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
     logger = logging.getLogger('cdmfrpc')
+    if level=='debug' or level=='DEBUG':
+        level = logging.DEBUG
+    elif level=='info' or level=='INFO':
+        level = logging.INFO
+    elif level=='warning' or level=='WARNING':
+        level = logging.WARNING
+    elif level=='error' or level=='ERROR':
+        level = logging.ERROR
+    elif level=='critical'  or level=='CRITICAL':
+        level = logging.CRITICAL
     logger.setLevel(level)
 
     if log_file:

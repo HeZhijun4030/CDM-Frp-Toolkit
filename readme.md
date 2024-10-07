@@ -54,12 +54,12 @@ cdmfrpc 库集成了日志记录功能，以便于调试和监控。默认的日
 
 #### 自定义日志配置 示例：
 ```` python
-import logging
 from CDMfrpc import FrpcClient
 from CDMfrpc.logger import setup_logger
 
-# 自定义日志配置
-logger = setup_logger(level=logging.DEBUG, log_file='frpc.log')
+# 自定义日志配置 详细设置见代码注释
+logger = setup_logger(level="DEBUG", log_file='frpc.log') 
+
 
 # 使用配置文件初始化客户端
 frpc_with_file = FrpcClient(config_path='/path/to/your/config.ini')

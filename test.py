@@ -1,9 +1,8 @@
-import logging
 
 from CDMFrpc import FrpcClient
 from CDMFrpc.logger import setup_logger
 if __name__ == '__main__':
-    logger = setup_logger(level=logging.DEBUG, log_file='frpc.log')
+    logger = setup_logger(level="debug", log_file='frpc.log')
 
     # 示例：使用配置文件
     frpc_with_file = FrpcClient(config_path='/path/to/your/config.ini')
