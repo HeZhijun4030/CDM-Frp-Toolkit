@@ -7,6 +7,7 @@ CDMFrpc 是一个 Python 库，用于简化 FRP 客户端的使用。它提供�
 ---
 # 环境依赖
 - Python 3.8+
+- [Frp 客户端](https://github.com/fatedier/frp/releases)
 
 # 使用
 ### 使用配置文件
