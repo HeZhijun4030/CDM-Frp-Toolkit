@@ -1,8 +1,9 @@
-# CDMFrpc
+# CDM Frp Toolkit
+![Static Badge](https://img.shields.io/badge/Only-CodeManStudio-blue)
 
 ---
 
-CDMFrpc 是一个 Python 库，用于简化 FRP 客户端的使用。它提供了两种方式来初始化客户端：配置文件和代码中定义的配置。
+CDM Frp Toolkit 是一个 Python 库，用于简化 FRP 客户端的使用。它提供了两种方式来初始化客户端：配置文件和代码中定义的配置。
 
 ---
 # 环境依赖
@@ -10,9 +11,11 @@ CDMFrpc 是一个 Python 库，用于简化 FRP 客户端的使用。它提供�
 - [Frp 客户端](https://github.com/fatedier/frp/releases)
 
 # 使用
+## 客户端
 ### 使用配置文件
+
 ````python
-from CDMFrpc import FrpcClient
+from CDMFrp import FrpcClient
 
 # 使用配置文件初始化客户端
 frpc_with_file = FrpcClient(config_path='/path/to/your/config.ini')
@@ -25,8 +28,9 @@ frpc_with_file.stop()
  ````
 
 ### 使用代码中定义的配置
+
 ````python
-from CDMFrpc import FrpcClient
+from CDMFrp import FrpcClient
 
 # 使用代码中定义的配置初始化客户端
 frpc_with_code = FrpcClient(
@@ -44,6 +48,40 @@ frpc_with_code.start()
 # 停止 FRPC 客户端
 frpc_with_code.stop()
 ````
+## 服务端
+````python
+from CDMFrp.server import FrpsClient
+from CDMFrp.logger import setup_logger
+
+# 自定义日志配置
+logger = setup_logger(level="DEBUG", log_file='frps.log')
+
+# 使用配置文件初始化 FRPS 服务端
+frps_with_file = FrpsClient(config_path='frps.ini')
+frps_with_file.start()
+
+# 使用代码中定义的配置初始化 FRPS 服务端
+frps_with_code = FrpsClient(
+    bind_port=7000,
+    token='your_token',
+    dashboard_addr='0.0.0.0',
+    dashboard_port=7500,
+    dashboard_user='admin_user',
+    dashboard_pwd='admin_pwd',
+    log_file='./frps.log',
+    log_level='info',
+    log_max_days=3
+)
+frps_with_code.start()
+
+try:
+    input("按任意键停止...\n")
+finally:
+    frps_with_file.stop()
+    frps_with_code.stop()
+````
+
+
 # 日志功能
 cdmfrpc 库集成了日志记录功能，以便于调试和监控。默认的日志级别为 INFO，日志格式为 
 ````
