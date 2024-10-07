@@ -118,5 +118,14 @@ frpc_with_file.stop()
 - **admin_addr**: 管理接口的监听地址和端口，格式为 Port。
 - **admin_user**: 管理接口的用户名。
 - **admin_pwd**: 管理接口的密码。
+- **bind_port**: 绑定的端口。
+- **token**: 用于身份验证的令牌。
+- **dashboard_addr**: 仪表板的监听地址，格式为 IP。
+- **dashboard_port**: 仪表板的监听端口。
+- **dashboard_user**: 仪表板的用户名。
+- **dashboard_pwd**: 仪表板的密码。
+- **log_file**: 日志文件路径。
+- **log_level**: 日志级别，可选值有 debug, info, warn, error。
+- **log_max_days**: 日志文件的最大保存天数
 
 #### 更多配置项可以参考 [FRP 官方文档。](https://github.com/fatedier/frp/blob/master/README_zh.md)
