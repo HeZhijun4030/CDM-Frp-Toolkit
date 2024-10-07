@@ -9,6 +9,7 @@ CDM Frp Toolkit 是一个 Python 库，用于简化 FRP 客户端的使用。它
 # 环境依赖
 - Python 3.8+
 - [Frp 客户端](https://github.com/fatedier/frp/releases)
+****注意！！Frp从0.34.1版本开始，配置文件格式发生了变化，所以本软件包可能会有Bug请向我反馈****
 
 # 使用
 ## 客户端

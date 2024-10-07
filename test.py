@@ -7,7 +7,7 @@ if __name__ == '__main__':
     logger = setup_logger(level="debug", log_file='frpc.log')
 
     # 示例：使用配置文件
-    frpc_with_file = FrpcClient(config_path='/path/to/your/config.ini')
+    frpc_with_file = FrpcClient(config_path='/path/to/your/config.toml')
     frpc_with_file.start()
 
     # 示例：使用代码中定义的配置
@@ -32,7 +32,7 @@ if __name__ == '__main__':
 logger = setup_logger( level="DEBUG", log_file='frps.log')
 
 # 使用配置文件初始化 FRPS 服务端
-frps_with_file = FrpsClient(config_path='frps.ini')
+frps_with_file = FrpsClient(config_path='frps.toml')
 frps_with_file.start()
 
 # 使用代码中定义的配置初始化 FRPS 服务端
