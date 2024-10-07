@@ -6,7 +6,7 @@
 # 使用
 ### 使用配置文件
 ````python
-from pyfrpc import FrpcClient
+from CDMFrpc import FrpcClient
 
 # 使用配置文件初始化客户端
 frpc_with_file = FrpcClient(config_path='/path/to/your/config.ini')
@@ -20,7 +20,7 @@ frpc_with_file.stop()
 
 ### 使用代码中定义的配置
 ````python
-from pyfrpc import FrpcClient
+from CDMFrpc import FrpcClient
 
 # 使用代码中定义的配置初始化客户端
 frpc_with_code = FrpcClient(
