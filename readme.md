@@ -19,7 +19,7 @@ CDM Frp Toolkit 是一个 Python 库，用于简化 FRP 客户端的使用。它
 from CDMFrp import FrpcClient
 
 # 使用配置文件初始化客户端
-frpc_with_file = FrpcClient(config_path='/path/to/your/config.ini')
+frpc_with_file = FrpcClient(config_path='/path/to/your/config.toml')
 
 # 启动 FRPC 客户端
 frpc_with_file.start()
@@ -58,7 +58,7 @@ from CDMFrp.logger import setup_logger
 logger = setup_logger(level="DEBUG", log_file='frps.log')
 
 # 使用配置文件初始化 FRPS 服务端
-frps_with_file = FrpsClient(config_path='frps.ini')
+frps_with_file = FrpsClient(config_path='frps.toml')
 frps_with_file.start()
 
 # 使用代码中定义的配置初始化 FRPS 服务端
